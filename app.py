@@ -27,6 +27,7 @@ users = {
 }
 
 AWX_HOST = ''
+AWX_PORT = ''
 AWX_USERNAME = ''
 AWX_PASSWORD = ''
 AWX_TEMPLATE_ID = ''

@@ -26,10 +26,11 @@ users = {
     "user": generate_password_hash("password")
 }
 
-AWX_HOST = ''
-AWX_USERNAME = ''
-AWX_PASSWORD = ''
-AWX_TEMPLATE_ID = ''
+AWX_HOST = '10.240.224.64'
+AWX_PORT = '32375'
+AWX_USERNAME = 'admin'
+AWX_PASSWORD = 'HO8djiFzRHNdN40alSzvCrpYlE0GEB5p'
+AWX_TEMPLATE_ID = '15'
 
 @auth.verify_password
 def verify_password(username, password):
@@ -43,7 +44,7 @@ def verify_password(username, password):
 def provision_kong_gw():
     provision_id = str(uuid.uuid4())
     
-    awx_url = f"http://{AWX_HOST}/api/v2/workflow_job_templates/{AWX_TEMPLATE_ID}/launch"
+    awx_url = f"http://{AWX_HOST}:{AWX_PORT}/api/v2/workflow_job_templates/{AWX_TEMPLATE_ID}/launch"
     headers = {"Content-Type": "application/json"}
     payload = {
         "extra_vars": "string",
@@ -74,7 +75,7 @@ def get_provision_status(provision_id):
     if not provision:
         abort(404)
     
-    awx_url = f"http://{AWX_HOST}/api/v2/workflow_jobs/{provision.workflow_job}/"
+    awx_url = f"http://{AWX_HOST}:{AWX_PORT}/api/v2/workflow_jobs/{provision.workflow_job}/"
     response = requests.get(awx_url, auth=(AWX_USERNAME, AWX_PASSWORD))
     
     if response.status_code == 200:

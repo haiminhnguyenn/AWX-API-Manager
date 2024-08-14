@@ -26,11 +26,19 @@ users = {
     "user": generate_password_hash("password")
 }
 
+<<<<<<< HEAD
 AWX_HOST = '10.240.224.64'
 AWX_PORT = '32375'
 AWX_USERNAME = 'admin'
 AWX_PASSWORD = 'HO8djiFzRHNdN40alSzvCrpYlE0GEB5p'
 AWX_TEMPLATE_ID = '15'
+=======
+AWX_HOST = ''
+AWX_PORT = ''
+AWX_USERNAME = ''
+AWX_PASSWORD = ''
+AWX_TEMPLATE_ID = ''
+>>>>>>> 72cc8ae4a088ba3c5cbed7205bcab55fb379b88a
 
 @auth.verify_password
 def verify_password(username, password):

@@ -1,5 +1,0 @@
-Flask
-Flask-HTTPAuth
-Flask-SQLAlchemy
-requests
-Werkzeug

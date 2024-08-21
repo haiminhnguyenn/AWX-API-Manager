@@ -5,7 +5,7 @@ from app.extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required
-from app.awx_service.tasks import async_launch_workflow_template
+from app.tasks import async_launch_workflow_template
 import uuid
 
 @bp.route("/register", methods=["POST"])

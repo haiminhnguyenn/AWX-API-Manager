@@ -3,7 +3,9 @@ from celery import Celery
 from config import Config
 from app.extensions import db, jwt
 
+
 celery = Celery(__name__, broker=Config.CELERY_BROKER_URL)
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)

@@ -49,7 +49,7 @@ def register():
     db.session.commit()
     logger.info(f'Add new user with "username": {username}, "password": {hash_and_salted_password} into database.')
     
-    return jsonify({"msg": "Register successfully!", "username": username, "password": password}), 201
+    return jsonify({"msg": "Register successfully!"}), 201
 
 
 @bp.route("/login", methods=["POST"])

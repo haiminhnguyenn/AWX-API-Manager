@@ -1,5 +1,5 @@
 # Backend for AWX API Management
-======================================
+--------------------------------
 
 ## Overview
 -----------
@@ -20,5 +20,5 @@ This repository contains a Flask-based backend service designed to facilitate th
 1. Clone this repository.
 2. Create a virtualenv and install the requirements (`pip install -r requirements.txt`)
 3. Open a second terminal window and start a Celery worker: `celery -A celery_worker.celery worker --loglevel=info`.
-4. Start AWX API Management on your first terminal window: `python3 run.py`/`python run.py`
+4. Start AWX API Management on your first terminal window: `python run.py`/`python3 run.py`
 5. Go to `http://localhost:8000/` and register an account to see how the AWX Manager work!

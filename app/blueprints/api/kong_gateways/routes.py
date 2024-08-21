@@ -1,5 +1,5 @@
 from app.models.kong_gateway_provision import KongGatewayProvision
-from app.models.login import User
+from app.models.login import UserAccount
 from app.blueprints.api.kong_gateways import bp
 from app.extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -28,7 +28,7 @@ def register():
         abort(400, description="Missing required data: 'username' or 'password'")
     
     user = db.session.execute(
-        db.select(User).where(User.username == username)
+        db.select(UserAccount).where(UserAccount.username == username)
     ).scalar()
     
     if user:
@@ -41,7 +41,7 @@ def register():
         salt_length=8
     )
     
-    new_user = User(
+    new_user = UserAccount(
         username = username,
         password = hash_and_salted_password
     )
@@ -67,7 +67,7 @@ def login():
         abort(400, description="Missing required data: 'username' or 'password'")
     
     user = db.session.execute(
-        db.select(User).where(User.username == username)
+        db.select(UserAccount).where(UserAccount.username == username)
     ).scalar()
     
     if not user or not check_password_hash(user.password, password):

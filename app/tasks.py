@@ -1,4 +1,3 @@
-from flask import current_app
 from . import celery
 from app.extensions import db
 from app.models.kong_gateway_provision import KongGatewayProvision

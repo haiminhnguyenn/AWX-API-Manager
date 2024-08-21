@@ -3,7 +3,7 @@ from app.models.kong_gateway_provision import KongGatewayProvision
 from app.extensions import db
 from flask import request, jsonify
 
-@bp.route("/webhook/awx", methods=["PUT"])
+@bp.route("/webhooks/awx", methods=["PUT"])
 def awx_webhook():
     data = request.get_json()
     workflow_job = data.get("id")

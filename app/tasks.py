@@ -23,7 +23,7 @@ def async_launch_workflow_template(consumer_id):
         response = requests.post(
             awx_url, 
             auth=("demo-kongservice-exe", "p8PWczX0C0AocWohR3ow"),
-            timeout=30
+            timeout=900
         )
     
         if response.status_code == 201:

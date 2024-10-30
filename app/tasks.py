@@ -1,11 +1,17 @@
+from dotenv import load_dotenv
+import requests
+
+from pathlib import Path
+import logging
+import os
+
 from . import celery
 from app.extensions import db
 from app.models.kong_gateway_provision import KongGatewayProvision
-import requests
-import logging
 
 
-logger = logging.getLogger(__name__)
+env_path = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(dotenv_path=env_path)
 
 
 @celery.task
@@ -16,26 +22,26 @@ def async_launch_workflow_template(consumer_id):
         ).scalar()
 
         if provision_to_update is None:
-            logger.error(f"No Kong Gateway Provision found for consumer_id {consumer_id}.")
+            logging.error(f"No Kong Gateway Provision found for consumer_id {consumer_id}.")
             return
     
-        awx_url = f"https://awx-stg.apigw.fptcloud.com/api/v2/workflow_job_templates/11/launch/"
+        awx_url = os.environ.get("AWX_URL")
         response = requests.post(
             awx_url, 
-            auth=("demo-kongservice-exe", "p8PWczX0C0AocWohR3ow"),
+            auth=(os.environ.get("AWX_USER"), os.environ.get("AWX_PASSWORD")),
             timeout=900
         )
     
         if response.status_code == 201:
             provision_to_update.workflow_job = response.json().get('workflow_job')
             db.session.commit()
-            logger.info(f"Workflow template launched successfully for consumer_id {consumer_id}.")
+            logging.info(f"Workflow template launched successfully for consumer_id {consumer_id}.")
         else:
-            logger.error(f"Failed to launch workflow template for consumer_id {consumer_id}. "
+            logging.error(f"Failed to launch workflow template for consumer_id {consumer_id}. "
                          f"Status code: {response.status_code}, Response: {response.text}")
     
     except requests.RequestException as e:
-        logger.error(f"Request to AWX failed for consumer_id {consumer_id}: {str(e)}")
+        logging.error(f"Request to AWX failed for consumer_id {consumer_id}: {str(e)}")
 
     except Exception as e:
-        logger.error(f"Unexpected error occurred for consumer_id {consumer_id}: {str(e)}")
+        logging.error(f"Unexpected error occurred for consumer_id {consumer_id}: {str(e)}")

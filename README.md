@@ -19,6 +19,7 @@ This repository contains a Flask-based backend service designed to facilitate th
 --------------
 1. Clone this repository.
 2. Create a virtualenv and install the requirements (`pip install -r requirements.txt`)
-3. Open a second terminal window and start a Celery worker: `celery -A celery_worker.celery worker --loglevel=info`.
-4. Start AWX API Management on your first terminal window: `python run.py`/`python3 run.py`
-5. Go to `http://localhost:8000/` and register an account to see how the AWX Manager work!
+3. Create `.env` following `.env.example` to provide environment variables.
+4. Open a second terminal window and start a Celery worker: `celery -A celery_worker.celery worker --loglevel=info`.
+5. Start AWX API Management on your first terminal window: `python run.py`/`python3 run.py`
+6. Go to `http://localhost:8000/` and register an account to see how the AWX Manager work!
